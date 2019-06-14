@@ -29,7 +29,7 @@
     "@angular/platform-browser": "7.0.1",
     "@angular/platform-browser-dynamic": "7.0.1",
     "@angular/router": "7.0.1",
-    "@asura-media/ui-sdk": "^1.2.31",
+    "@asura-media/ui-sdk": "^1.2.34",
     "@ngxs/router-plugin": "^3.3.4",
     "@ngxs/storage-plugin": "^3.3.4",
     "@ngxs/store": "^3.3.4",

@@ -8,6 +8,7 @@ import { Catalog } from '../models/catalog';
 import { Store } from '@ngxs/store';
 import { CatalogState } from '../../ngxs/catalogs.state';
 import EntityDataResolver from './entity-data-resolver';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Injectable()
 export class DataCatalogsService extends RequestService<Catalog[]> {
@@ -78,6 +79,7 @@ export class DataCatalogsService extends RequestService<Catalog[]> {
       .pipe(
         catchError(err => {
           if (err.status === 401) {
+            this.store.dispatch(new Navigate(['/auth']))
             return of([])
           }
           return err

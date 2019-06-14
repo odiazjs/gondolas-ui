@@ -263,10 +263,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@asura-media/ui-sdk@^1.2.31":
-  version "1.2.31"
-  resolved "https://registry.yarnpkg.com/@asura-media/ui-sdk/-/ui-sdk-1.2.31.tgz#bd27145113e2e801fde8ce3d63c8de96003a32c3"
-  integrity sha512-uERhfRACMY1nRszSxdxEb06NXRBCkO+t8yeEyvHcuVecokCycnRrknZeSdpmMMwaNCJhx9Pv4xjInxKmKKFt4A==
+"@asura-media/ui-sdk@^1.2.34":
+  version "1.2.34"
+  resolved "https://registry.yarnpkg.com/@asura-media/ui-sdk/-/ui-sdk-1.2.34.tgz#91fb59aa9a93be98ce04eb1439e9e6890a5fb43f"
+  integrity sha512-yDCmB9iUxAbqAEsPc3V+UlJS38ReHhoH6fNQAuOntlqO5bDSmyQ0pMU6sRCkmZnZRHiaA9ZwZ+T2KWS6ElSJoA==
   dependencies:
     tslib "^1.9.0"
 

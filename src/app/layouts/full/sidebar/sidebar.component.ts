@@ -41,7 +41,7 @@ export class AppSidebarComponent implements OnDestroy, AfterViewInit {
 
   setUsername () {
     let store = this.getStore()
-    this.userInfo = parseJwt(store.token)    
+    this.userInfo = store.token ? parseJwt(store.token) : {}
   }
 
   ngAfterViewInit () {
