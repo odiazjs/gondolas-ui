@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="form-group">
+        <input placeholder="Buscar ubicacion o lugar" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+            class="form-control" #search [formControl]="searchControl">
+    </div>
+    <agm-map 
+        [latitude]="latitude" 
+        [longitude]="longitude" 
+        [scrollwheel]="true" 
+        [zoom]="zoom"
+        (mapClick)="setMarker($event)">
+        <ng-container *ngIf="marker.id">
+            <agm-marker [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
+        </ng-container>
+    </agm-map>
+</div>

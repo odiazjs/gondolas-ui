@@ -1,0 +1,41 @@
+<div class="product-dialog-container">
+  <h1 mat-dialog-title>Insertar producto en la casilla</h1>
+  <div class="flex-container">
+    <div>
+      <p>Buscar Producto</p>
+      <mat-form-field>
+        <input #productSearch matInput [(ngModel)]="gondolaData.queryString" (keyup)="onKeyUp($event.target.value)">
+      </mat-form-field>
+    </div>
+    <div class="selected-side" *ngIf="gondolaData.selectedSide">
+      <img [src]="imgUrl + gondolaData.selectedSide.imageName" alt="side.name" width="35%" />
+      <div style="font-size: 16px;">{{gondolaData.selectedSide.name}}</div>
+    </div>
+    <div class="selected-side" *ngIf="!gondolaData.selectedSide">
+      <img src="http://www.sclance.com/pngs/image-placeholder-png/image_placeholder_png_698403.png" alt="side.name" width="35%" />
+      <div style="font-size: 16px;">Imagen no seleccionada</div>
+    </div>
+  </div>
+
+  <!-- Products List -->
+  <div class="list-container">
+    <h4>Productos</h4>
+    <mat-list role="list" class="list">
+      <mat-list-item *ngFor="let product of gondolaData.productList" role="listitem" class="item">
+        {{product.name}}
+        <div class="flex-container" style="margin-left: 20%;">
+          <div *ngFor="let side of product.sides" (click)="gondolaData.selectSide(side)">
+            <img [src]="imgUrl + side.imageName" alt="side.name" width="75%" />
+            <div style="font-size: 16px;">{{side.name}}</div>
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>
+
+<!-- Controls -->
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="gondolaData.selectedSide" cdkFocusInitial>Confirmar</button>
+</div>

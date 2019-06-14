@@ -1,0 +1,23 @@
+.mat-dialog-container {
+  min-width: none !important;
+}
+
+.product-dialog-container {
+  .list-container {
+    padding: 25px;
+    .item {
+      color: #242424 !important;
+      cursor: pointer;
+      background: white;
+      margin: 5px !important;
+    }
+  }
+}
+
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+  display: block;
+  height: auto !important;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  padding: 0;
+}

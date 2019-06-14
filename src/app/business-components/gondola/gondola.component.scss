@@ -1,0 +1,34 @@
+.gondola-container {
+    padding: 25px 0px;
+    height: 100%;
+    width: 95%;
+    position: absolute;
+    .addBtn {
+        padding: 10px;
+    }
+    .addIcon {
+        width: 50px;
+        height: 50px;
+        background-color: green;
+        border-radius: 50px;
+        padding: 12px;
+        color: white;
+    }
+    .tile {
+      cursor: pointer;
+    }
+    .tile-id {
+        position: absolute;
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+    }
+    .remove {
+        position: absolute;
+        background: red;
+        color: white;
+        top: 0px;
+        right: 0px;
+        border: none;
+    }
+}

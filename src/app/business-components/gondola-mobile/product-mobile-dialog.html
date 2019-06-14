@@ -1,0 +1,8 @@
+<div class="product-dialog-container">
+  <div class="flex-container">
+    <div class="selected-side" *ngIf="data.item">
+      <div style="font-size: 16px;">{{data.item.side.name}}</div>
+      <img [src]="imgUrl + data.item.side.imageName" alt="data.item.side.name" width="200px" />
+    </div>
+  </div>
+</div>

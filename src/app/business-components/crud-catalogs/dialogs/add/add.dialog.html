@@ -1,0 +1,104 @@
+<div class="container">
+  <h3 mat-dialog-title>Agregar {{data.entityName}}</h3>
+
+  <div class="form" style="padding: 20px" *ngIf="data.imageUploadConfig">
+    <image-upload [max]="data.imageUploadConfig.max" [headers]="data.imageUploadConfig.headers" [buttonCaption]="data.imageUploadConfig.btnText"
+      [dropBoxMessage]="data.imageUploadConfig.boxMessage" [extensions]="data.imageUploadConfig.extensions"
+      [uploadedFiles]="imageUploadDefaultConfig.previousFiles" (removed)="imageUploadDefaultConfig.removed($event)"
+      (uploadFinished)="imageUploadDefaultConfig.onFinished($event)" (uploadStateChanged)="imageUploadDefaultConfig.onStateChanged($event)">
+    </image-upload>
+  </div>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm" (keydown.enter)="$event.preventDefault()">
+    <mat-grid-list cols="2" rowHeight="2.5:1">
+      <mat-grid-tile>
+        <mat-form-field color="accent">
+          <input matInput #inputstate class="form-control" placeholder="Nombre" [(ngModel)]="data.name" name="name"
+            maxlength="15" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{inputstate.value?.length || 0}}/15</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="data.address !== undefined">
+        <mat-form-field color="accent">
+          <input matInput #inputstate class="form-control" placeholder="Direccion" [(ngModel)]="data.address" name="address"
+            maxlength="15" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{inputstate.value?.length || 0}}/15</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="data.brand !== undefined">
+        <mat-form-field>
+          <mat-select placeholder="Marca" [(ngModel)]="data.brand" name="brand">
+            <mat-option *ngFor="let item of dataService.brands$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      
+      <!--Departamento / Municipio-->
+      <mat-grid-tile *ngIf="data.catalogs.state">
+        <mat-form-field>
+          <mat-select placeholder="Departamento" [(ngModel)]="data.state" name="state">
+            <mat-option *ngFor="let item of dataService.states$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="data.catalogs.city">
+        <mat-form-field>
+          <mat-select placeholder="Municipio" [(ngModel)]="data.city" name="city">
+            <mat-option *ngFor="let item of dataService.cities$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="data.catalogs.format">
+        <mat-form-field>
+          <mat-select placeholder="Formato" [(ngModel)]="data.format" name="format">
+            <mat-option *ngFor="let item of dataService.formats$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="data.catalogs.chain">
+        <mat-form-field>
+          <mat-select placeholder="Cadena" [(ngModel)]="data.chain" name="chain">
+            <mat-option *ngFor="let item of dataService.chains$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile *ngIf="data.catalogs.channel">
+        <mat-form-field>
+          <mat-select placeholder="Canal" [(ngModel)]="data.channel" name="channel">
+            <mat-option *ngFor="let item of dataService.channels$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <!--Google Maps Start-->
+    <mat-grid-list cols="1" rowHeight="1:1" *ngIf="data.location !== undefined">
+      <mat-grid-tile>
+        <app-google-maps #location [(ngModel)]="dataService.location" name="location" ngDefaultControl></app-google-maps>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="1" rowHeight="8:1">
+      <mat-grid-tile>
+        <div mat-dialog-actions>
+          <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="confirmAdd(data)">Guardar</button>
+          <button mat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>

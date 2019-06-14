@@ -1,0 +1,9 @@
+  version: '3.3'
+  services:
+    api:
+      container_name: gondola-ui
+      build: .
+      restart: always
+      command: sh entrypoint.sh
+      ports:
+        - "9000:9000"

@@ -1,0 +1,131 @@
+<div class="container">
+  <h3 mat-dialog-title>Agregar Producto</h3>
+
+  <!--Product info-->
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm" (keydown.enter)="$event.preventDefault()">
+    <mat-grid-list cols="2" rowHeight="2.5:1">
+      <mat-grid-tile>
+        <mat-form-field color="accent" style="overflow: hidden;">
+          <input matInput #name class="form-control" placeholder="Nombre" [(ngModel)]="data.name" name="name"
+            maxlength="20" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{name.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-select placeholder="Sabor" [(ngModel)]="data.flavor" name="flavor">
+            <mat-option *ngFor="let item of dataService.flavors$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field color="accent">
+          <input matInput #weight class="form-control" placeholder="Peso" [(ngModel)]="data.weight" name="weight"
+            maxlength="20" type="number" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{weight.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="En" #massUnit [(ngModel)]="data.weightUnit" name="weightUnit">
+            <mat-option *ngFor="let item of ['kg', 'gr', 'oz', 'lb']" [value]="item" (click)="select(item)">
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-select placeholder="Presentacion" #packing [(ngModel)]="data.presentation" name="presentation">
+            <mat-option *ngFor="let item of dataService.presentations$ | async" [value]="item.id"
+              (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field color="accent">
+          <input matInput #code class="form-control" placeholder="Codigo" [(ngModel)]="data.code" name="code"
+            maxlength="20" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-select placeholder="Categoria" #categories [(ngModel)]="data.category" name="category">
+            <mat-option *ngFor="let item of dataService.categories$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-select placeholder="Marca" #brands [(ngModel)]="data.brand" name="brand">
+            <mat-option *ngFor="let item of dataService.brands$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <!-- Images -->
+    <mat-grid-list cols="4" rowHeight="1.5:1">
+      <ng-container *ngFor="let side of data.sides">
+        <mat-grid-tile>
+          <label class="side-name">{{side.name}}</label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="form" style="padding: 0px">
+            <image-upload [max]="data.imageUploadConfig.max" [headers]="data.imageUploadConfig.headers"
+              [buttonCaption]="data.imageUploadConfig.btnText" [dropBoxMessage]="data.imageUploadConfig.boxMessage"
+              [extensions]="data.imageUploadConfig.extensions" [uploadedFiles]="data.imageUploadConfig.previousFiles"
+              [clearButtonCaption]="'Limpiar'"
+              (removed)="data.imageUploadConfig.removed(side)"
+              (uploadFinished)="data.imageUploadConfig.onFinished($event, side)"
+              (uploadStateChanged)="data.imageUploadConfig.onStateChanged($event)">
+            </image-upload>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field color="accent" style="padding: 10px">
+            <input matInput #height class="form-control" placeholder="Alto" [(ngModel)]="side.height" name="height"
+              maxlength="4" type="number" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-hint align="end">{{height.value?.length || 0}}/4</mat-hint>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field color="accent" style="padding: 10px">
+            <input matInput #width class="form-control" placeholder="Ancho" [(ngModel)]="side.width" name="width"
+              maxlength="4" type="number" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-hint align="end">{{width.value?.length || 0}}/4</mat-hint>
+          </mat-form-field>
+        </mat-grid-tile>
+      </ng-container>
+    </mat-grid-list>
+
+    <mat-grid-list cols="1" rowHeight="8:1">
+      <mat-grid-tile>
+        <div mat-dialog-actions>
+          <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+            (click)="confirmAdd(data)">Save</button>
+          <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+
+</div>

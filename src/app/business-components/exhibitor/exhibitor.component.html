@@ -1,0 +1,76 @@
+<div class="exhibitor-container">
+  <!-- Establishments Filters -->
+  <div style="padding: 25px 0px 25px 0px">
+    <h4>Asociar Negocios</h4>
+    <app-establishments
+      [readonly]="true"
+      [onEstablishmentChange]="onEstablishmentChange"
+      [onCheckboxChange]="{ fn: onEstablishmentCheck, proto: prototype }">
+    </app-establishments>
+  </div>
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm" (keydown.enter)="$event.preventDefault()">
+    <h4>Informacion de Exhibidor</h4>
+    <mat-grid-list cols="2" rowHeight="2.5:1">
+      <mat-grid-tile>
+        <mat-form-field color="accent" style="overflow: hidden;">
+          <input matInput #name class="form-control" placeholder="Nombre" [(ngModel)]="dataService.model.name" name="name"
+            maxlength="20" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{name.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-select placeholder="Tipo" [(ngModel)]="dataService.model.gondolaType" name="type">
+            <mat-option *ngFor="let item of dataService.gondolaTypes$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-select placeholder="Categoria" [(ngModel)]="dataService.model.category" name="category">
+            <mat-option *ngFor="let item of categories$ | async" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-select placeholder="Marcas" [formControl]="brandsMultiselect" multiple class="brands" [compareWith]="compareFn">
+          <mat-select-trigger>
+            {{brandsMultiselect.value && brandsMultiselect.value[0] ? brandsMultiselect.value[0].name : ''}}
+            <span *ngIf="brandsMultiselect.value?.length > 1" class="example-additional-selection">
+              (+{{brandsMultiselect.value.length - 1}} {{brandsMultiselect.value?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let brand of brands$ | async" [value]="brand">{{ brand.name }}</mat-option>
+        </mat-select>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+      <div style="padding: 5px;">
+        <h4>Gondola</h4>
+        <ng-container *ngIf="imageUploadConfig">
+            <image-upload [max]="imageUploadConfig.max" [headers]="imageUploadConfig.headers"
+              [buttonCaption]="imageUploadConfig.btnText" [dropBoxMessage]="imageUploadConfig.boxMessage"
+              [extensions]="imageUploadConfig.extensions" [uploadedFiles]="imageUploadConfig.previousFiles"
+              (removed)="imageUploadConfig.removed($event)"
+              (uploadFinished)="imageUploadConfig.onFinished($event)"
+              (uploadStateChanged)="imageUploadConfig.onStateChanged($event)">
+            </image-upload>
+          </ng-container>
+          <div mat-dialog-actions style="padding: 10px;">
+            <button mat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
+            <button mat-button [type]="submit" [disabled]="!formControl.valid" (click)="confirmAdd()">Crear</button>
+          </div>
+        <app-gondola [tiles]="tiles" [existingCells]="existingCells"></app-gondola>
+      </div>
+
+  </form>
+</div>

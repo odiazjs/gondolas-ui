@@ -1,0 +1,107 @@
+h1, h2, h3, h4 {
+  line-height: 2px !important;
+}
+/** Menu items */
+.mat-list-item-content, a, span {
+    padding: 0px 0px 0px 6px;
+}
+
+/* Mat dialog */
+.mat-dialog-content {
+    display: contents !important;
+}
+
+.mat-dialog-container {
+    display: block;
+    padding: 24px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
+    width: 100%;
+    height: auto !important;
+    /* min-height: inherit; */
+    /* max-height: inherit; */
+    min-width: 800px !important;
+}
+
+.product-dialog-container .mat-dialog-container {
+  display: -webkit-inline-box !important;
+}
+
+/** Add dialog */
+.cdk-overlay-pane {
+    min-height: 50vw !important;
+}
+
+/** Profile drop */
+.cdk-overlay-pane, .mat-menu-panel {
+    min-height: auto !important;
+}
+
+/** Mat lists */
+mat-form-field {
+    overflow: hidden !important;
+}
+figure.mat-figure {
+    flex-grow: 1 !important;
+    overflow: auto !important;
+}
+.mat-grid-tile .mat-figure {
+    align-items: baseline !important;
+}
+
+/* Gondola theme */
+
+.mat-toolbar.mat-primary {
+    background: #be8e4f !important;
+    color: white !important;
+}
+
+.mat-drawer-container {
+    background: white !important;
+}
+
+mat-sidenav {
+    background: #424242 !important;
+}
+
+.mat-list-base .mat-list-item {
+    color: white !important;
+}
+
+.user-profile {
+    background: url('./assets/images/logo.png') no-repeat !important;
+    background-size: 255px 175px !important;
+}
+
+.user-profile .profile-text {
+    padding: 0px !important;
+    margin: 10px 0px !important;
+}
+
+.mat-button.mat-accent, .mat-icon-button.mat-accent, .mat-stroked-button.mat-accent {
+    color: lightgrey !important;
+}
+
+figure.mat-figure {
+    flex-grow: 1 !important;
+    overflow: hidden !important;
+}
+
+/* Flexbox */
+.flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.flex-container > div {
+  width: 100%;
+  margin: 5px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.img-ul-drag-box-msg {
+  display: none !important;
+}

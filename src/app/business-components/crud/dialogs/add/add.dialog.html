@@ -1,0 +1,127 @@
+<div class="container">
+  <h3 mat-dialog-title>Agregar Usuario</h3>
+
+  <!--User type-->
+  <mat-grid-list cols="2" rowHeight="3:1">
+    <mat-grid-tile *ngFor="let userType of dataService.defaultUserTypes">
+      <mat-slide-toggle style="padding-top: 10px;" (change)="toggle($event, userType.appType);"
+        [color]="color" [checked]="checked" [disabled]="disabled">
+        {{userType.appType.toUpperCase()}}
+      </mat-slide-toggle>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!--User info-->
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm" (keydown.enter)="$event.preventDefault()">
+    <mat-grid-list cols="2" rowHeight="2.5:1">
+      <mat-grid-tile>
+        <mat-form-field color="accent" style="overflow: hidden;">
+          <input matInput #imei class="form-control" placeholder="IMEI" [(ngModel)]="data.device.imei" name="imei"
+            maxlength="20" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{imei.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-select placeholder="Empresa Telefonica" [(ngModel)]="data.device.phoneCompany" name="phoneCompany">
+            <mat-option *ngFor="let item of (dataService.catalogs$ | async)?.phoneCompanies" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-selection-list #phoneCompanies multiselectable="false">
+            <mat-list-option *ngFor="let item of dataService.phoneCompanies" (click)="select(phoneCompanies)">
+              {{item.name}}
+            </mat-list-option>
+          </mat-selection-list> -->
+      </mat-grid-tile>
+
+
+      <mat-grid-tile>
+        <mat-form-field color="accent">
+          <input matInput #phoneNumber class="form-control" placeholder="Telefono" [(ngModel)]="data.device.phoneNumber" name="phoneNo"
+            maxlength="20" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{phoneNumber.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-select placeholder="Rol" #role [(ngModel)]="data.role" name="role">
+            <mat-option *ngFor="let item of (dataService.catalogs$ | async)?.roles" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field color="accent">
+          <input matInput #name class="form-control" placeholder="Nombre" [(ngModel)]="data.name" name="name"
+            maxlength="20" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{name.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-select placeholder="Puesto" #jobTitles [(ngModel)]="data.jobTitle" name="jobtitle">
+            <mat-option *ngFor="let item of (dataService.catalogs$ | async)?.jobTitles" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field color="accent">
+          <input matInput #code class="form-control" placeholder="Codigo" [(ngModel)]="data.code" name="code"
+            maxlength="20" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{code.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field>
+          <mat-select placeholder="Empresa" #companies [(ngModel)]="data.company" name="company">
+            <mat-option *ngFor="let item of (dataService.catalogs$ | async)?.companies" [value]="item.id" (click)="select(item)">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field color="accent">
+          <input matInput #username class="form-control" placeholder="Usuario" [(ngModel)]="data.username" name="username"
+            maxlength="20" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{username.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field color="accent">
+          <input matInput #password class="form-control" placeholder="Contrasena" type="password" [(ngModel)]="data.password"
+            name="password2" maxlength="20" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="1" rowHeight="8:1">
+      <mat-grid-tile>
+        <div mat-dialog-actions>
+          <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="confirmAdd(data)">Save</button>
+          <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+
+</div>

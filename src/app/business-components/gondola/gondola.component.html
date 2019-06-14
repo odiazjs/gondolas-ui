@@ -1,0 +1,12 @@
+<div class="gondola-container">
+  <div class="add-product">
+  </div>
+  <gridster [options]="options">
+    <gridster-item class="tile"
+      [item]="item"
+      *ngFor="let item of dashboard">
+        <img *ngIf="item.side" [src]="imgUrl + item.side.imageName" width="100%" height="100%" alt="item.side.name" />
+        <button *ngIf="item.side" (click)="removeItem($event, item)" class="remove">X</button>
+    </gridster-item>
+  </gridster>
+</div>
